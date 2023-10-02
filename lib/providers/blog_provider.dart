@@ -1,4 +1,4 @@
-import 'package:blog_explorer/models/Blog.dart';
+import 'package:blog_explorer/models/blog_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -6,7 +6,7 @@ class BlogProvider with ChangeNotifier {
   List<Blog> _blogs = [];
   List<Blog> get blogs => _blogs;
 
-  void fetchBlogs() async {
+  Future fetchBlogs() async {
     const String url = 'https://intent-kit-16.hasura.app/api/rest/blogs';
     const String adminSecret =
         '32qR4KmXOIpsGPQKMqEJHGJS27G5s7HdSKO3gdtQd2kv5e852SiYwWNfxkZOBuQ6';
