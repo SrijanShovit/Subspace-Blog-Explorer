@@ -1,4 +1,9 @@
+import 'package:blog_explorer/providers/blog_provider.dart';
+import 'package:blog_explorer/screens/blog_list_screen.dart';
+// import 'package:blog_explorer/screens/blog_list_screen.dart';
+import 'package:blog_explorer/widgets/blog_list.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MainApp());
@@ -9,10 +14,16 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<BlogProvider>(create: (_) => BlogProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.dark(),
+        home: ChangeNotifierProvider(
+          create: (_) => BlogProvider(),
+          child: const BlogListScreen(),
         ),
       ),
     );

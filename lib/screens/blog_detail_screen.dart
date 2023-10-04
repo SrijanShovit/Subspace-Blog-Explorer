@@ -10,16 +10,57 @@ class DetailedBlogScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final blogProvider = Provider.of<BlogProvider>(context);
+    final titleString = currBlog.title.length > 20
+        ? '${currBlog.title.substring(0, 20)}...'
+        : currBlog.title;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(currBlog.title),
+        title: Text(titleString),
       ),
-      body:Column(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.network(currBlog.image),
-          Text(currBlog.title),
-          
+          Stack(
+            alignment: Alignment.bottomRight,
+            children: [
+              Image.network(
+                currBlog.image,
+                height: 200,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: IconButton(
+                  onPressed: () {
+                    blogProvider.toggleFavourite(currBlog.blogId);
+                  },
+                  icon: Icon(
+                      blogProvider.isFavouriteBlog(currBlog.blogId)
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: blogProvider.isFavouriteBlog(currBlog.blogId)
+                          ? Colors.red
+                          : Colors.white,
+                      size: 30),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              currBlog.title,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
       ),
     );
