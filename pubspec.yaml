@@ -12,8 +12,12 @@ dependencies:
   http:
   provider:
   hive:
+  hive_flutter:
   path_provider:
   connectivity_plus:
+  hive_generator:
+  build_runner:
+  cached_network_image:
 
 dev_dependencies:
   flutter_test:

@@ -1,11 +1,16 @@
+import 'package:blog_explorer/models/blog_model.dart';
 import 'package:blog_explorer/providers/blog_provider.dart';
 import 'package:blog_explorer/screens/blog_list_screen.dart';
 // import 'package:blog_explorer/screens/blog_list_screen.dart';
-import 'package:blog_explorer/widgets/blog_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(BlogAdapter());
+  await Hive.openBox('cached_blogs');
   runApp(const MainApp());
 }
 
